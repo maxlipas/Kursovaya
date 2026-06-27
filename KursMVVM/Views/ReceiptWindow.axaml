@@ -1,0 +1,52 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="350"
+        Width="350" Height="350"
+        x:Class="KursMVVM.ReceiptWindow"
+        Title="Выдача спецодежды"
+        xmlns:model="using:KursMVVM.Models"
+        xmlns:converter="using:KursMVVM.Converters">
+  <Window.Resources>
+    <converter:WorkerToId x:Key="WorkerToId"/>
+    <converter:ClothingToId x:Key="ClothingToId"/>
+  </Window.Resources>
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition/>
+      <RowDefinition/>
+      <RowDefinition/>
+      <RowDefinition/>
+      <RowDefinition/>
+    </Grid.RowDefinitions>
+    <ComboBox Grid.Row="0" Margin="10" PlaceholderText="Выберите работника"
+              ItemsSource="{Binding WorkerList}"
+              SelectedItem="{Binding Receipt.WorkerId, Converter={StaticResource WorkerToId}}" x:Name="WorkerCombo">
+      <ComboBox.ItemTemplate>
+        <DataTemplate DataType="model:Worker">
+          <TextBlock Text="{Binding FIO}"/>
+        </DataTemplate>
+      </ComboBox.ItemTemplate>
+    </ComboBox>
+    <ComboBox Grid.Row="1" Margin="10" PlaceholderText="Выберите спецодежду"
+              ItemsSource="{Binding ClothingList}"
+              SelectedItem="{Binding Receipt.ClothingId, Converter={StaticResource ClothingToId}}" x:Name="ClothingCombo">
+      <ComboBox.ItemTemplate>
+        <DataTemplate DataType="model:SpecialClothing">
+          <TextBlock Text="{Binding Type}"/>
+        </DataTemplate>
+      </ComboBox.ItemTemplate>
+    </ComboBox>
+    <DatePicker Grid.Row="2" Margin="10" SelectedDate="{Binding Receipt.DateReceived}" x:Name="DatePicker"/>
+    <TextBox Grid.Row="3" Margin="10" Watermark="Роспись" Text="{Binding Receipt.Signature}" x:Name="SignatureBox"/>
+    <Grid Grid.Row="4">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition/>
+        <ColumnDefinition/>
+      </Grid.ColumnDefinitions>
+      <Button Grid.Column="0" Content="Сохранить" HorizontalAlignment="Center" Click="Save_Click"/>
+      <Button Grid.Column="1" Content="Отменить" HorizontalAlignment="Center" Click="Cancel_Click"/>
+    </Grid>
+  </Grid>
+</Window>

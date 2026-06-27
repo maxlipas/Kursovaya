@@ -1,0 +1,34 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="using:KursMVVM.ViewModels"
+             xmlns:lvc="using:LiveChartsCore.SkiaSharpView.Avalonia"
+             x:Class="KursMVVM.GraphPageView"
+             x:DataType="vm:GraphPageViewModel">
+  <UserControl.DataContext>
+    <vm:GraphPageViewModel/>
+  </UserControl.DataContext>
+  <Grid>
+    <TabControl Margin="5">
+      <TabControl.ItemsPanel>
+        <ItemsPanelTemplate>
+          <StackPanel Orientation="Horizontal" />
+        </ItemsPanelTemplate>
+      </TabControl.ItemsPanel>
+      <TabItem Header="По цехам">
+        <lvc:PieChart Series="{Binding WorkshopSeries}"/>
+      </TabItem>
+      <TabItem Header="Стоимость">
+        <lvc:CartesianChart Series="{Binding ClothingCostSeries}" XAxes="{Binding XAxesClothing}"/>
+      </TabItem>
+      <TabItem Header="По месяцам">
+        <lvc:CartesianChart Series="{Binding MonthlySeries}" XAxes="{Binding XAxesMonthly}"/>
+      </TabItem>
+      <TabItem Header="Сроки носки">
+        <lvc:CartesianChart Series="{Binding WearPeriodSeries}" XAxes="{Binding XAxesWear}"/>
+      </TabItem>
+    </TabControl>
+  </Grid>
+</UserControl>

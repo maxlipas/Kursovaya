@@ -1,0 +1,35 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="KursMVVM.SpecialClothingPageView"
+             xmlns:vm="using:KursMVVM.ViewModels"
+             x:DataType="vm:SpecialClothingPageViewModel">
+  <Design.DataContext>
+    <vm:SpecialClothingPageViewModel/>
+  </Design.DataContext>
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="1*"/>
+      <RowDefinition Height="8*"/>
+      <RowDefinition Height="1*"/>
+    </Grid.RowDefinitions>
+    <DataGrid Grid.Row="1" ItemsSource="{Binding Clothings}"
+              SelectedItem="{Binding SelectedClothing, Mode=TwoWay}"
+              AutoGenerateColumns="False" CanUserReorderColumns="True"
+              CanUserResizeColumns="True" CanUserSortColumns="True"
+              GridLinesVisibility="All">
+      <DataGrid.Columns>
+        <DataGridTextColumn Header="Вид" Binding="{Binding Type}" Width="*"/>
+        <DataGridTextColumn Header="Срок носки (мес.)" Binding="{Binding WearPeriod}" Width="*"/>
+        <DataGridTextColumn Header="Стоимость" Binding="{Binding UnitCost}" Width="*"/>
+      </DataGrid.Columns>
+    </DataGrid>
+    <StackPanel Grid.Row="2" Orientation="Horizontal">
+      <Button Content="Добавить" Margin="10 0" Command="{Binding AddCommand}"/>
+      <Button Content="Редактировать" Margin="10 0" Command="{Binding EditCommand}" CommandParameter="{Binding SelectedClothing}"/>
+      <Button Content="Удалить" Margin="10 0" Command="{Binding DeleteCommand}" CommandParameter="{Binding SelectedClothing}"/>
+    </StackPanel>
+  </Grid>
+</UserControl>

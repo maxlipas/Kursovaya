@@ -1,0 +1,28 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="250"
+        Width="350" Height="250"
+        x:Class="KursMVVM.SpecialClothingWindow"
+        Title="Спецодежда">
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition/>
+      <RowDefinition/>
+      <RowDefinition/>
+      <RowDefinition/>
+    </Grid.RowDefinitions>
+    <TextBox Grid.Row="0" Margin="10" Watermark="Вид" Text="{Binding Clothing.Type}" x:Name="TypeBox"/>
+    <NumericUpDown Grid.Row="1" Margin="10" Watermark="Срок носки" Value="{Binding Clothing.WearPeriod}" x:Name="WearBox" Minimum="1" FormatString="0"/>
+    <TextBox Grid.Row="2" Margin="10" Watermark="Стоимость" Text="{Binding Clothing.UnitCost}" x:Name="CostBox"/>
+    <Grid Grid.Row="3">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition/>
+        <ColumnDefinition/>
+      </Grid.ColumnDefinitions>
+      <Button Grid.Column="0" Content="Сохранить" HorizontalAlignment="Center" Click="Save_Click"/>
+      <Button Grid.Column="1" Content="Отменить" HorizontalAlignment="Center" Click="Cancel_Click"/>
+    </Grid>
+  </Grid>
+</Window>

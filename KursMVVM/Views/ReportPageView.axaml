@@ -1,0 +1,69 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="using:KursMVVM.ViewModels"
+             x:Class="KursMVVM.ReportPageView"
+             x:DataType="vm:ReportPageViewModel">
+  <Design.DataContext>
+    <vm:ReportPageViewModel/>
+  </Design.DataContext>
+  <Grid>
+    <TabControl Margin="5">
+      <TabControl.ItemsPanel>
+        <ItemsPanelTemplate>
+          <StackPanel Orientation="Horizontal" />
+        </ItemsPanelTemplate>
+      </TabControl.ItemsPanel>
+      <TabItem Header="Сводка по цехам">
+        <DataGrid ItemsSource="{Binding WorkshopSummary}" AutoGenerateColumns="False" GridLinesVisibility="All" IsReadOnly="True">
+          <DataGrid.Columns>
+            <DataGridTextColumn Header="Цех" Binding="{Binding WorkshopName}" Width="*"/>
+            <DataGridTextColumn Header="Работников" Binding="{Binding WorkerCount}" Width="*"/>
+            <DataGridTextColumn Header="Получений" Binding="{Binding ReceiptCount}" Width="*"/>
+            <DataGridTextColumn Header="Общая стоимость" Binding="{Binding TotalCost, StringFormat=F2}" Width="*"/>
+          </DataGrid.Columns>
+        </DataGrid>
+      </TabItem>
+      <TabItem Header="Обеспеченность работников">
+        <DataGrid ItemsSource="{Binding WorkerProvision}" AutoGenerateColumns="False" GridLinesVisibility="All" IsReadOnly="True">
+          <DataGrid.Columns>
+            <DataGridTextColumn Header="Ф.И.О." Binding="{Binding FIO}" Width="*"/>
+            <DataGridTextColumn Header="Должность" Binding="{Binding Position}" Width="*"/>
+            <DataGridTextColumn Header="Цех" Binding="{Binding WorkshopName}" Width="*"/>
+            <DataGridTextColumn Header="Видов получено" Binding="{Binding ClothingTypesCount}" Width="*"/>
+            <DataGridTextColumn Header="Последняя дата" Binding="{Binding LastReceiptDate}" Width="*"/>
+          </DataGrid.Columns>
+        </DataGrid>
+      </TabItem>
+      <TabItem Header="Истекающий срок">
+        <DataGrid ItemsSource="{Binding ExpiringClothing}" AutoGenerateColumns="False" GridLinesVisibility="All" IsReadOnly="True">
+          <DataGrid.Columns>
+            <DataGridTextColumn Header="Вид спецодежды" Binding="{Binding ClothingType}" Width="*"/>
+            <DataGridTextColumn Header="Дата получения" Binding="{Binding DateReceived}" Width="*"/>
+            <DataGridTextColumn Header="Работник" Binding="{Binding WorkerFIO}" Width="*"/>
+            <DataGridTextColumn Header="Осталось мес." Binding="{Binding MonthsLeft}" Width="*"/>
+          </DataGrid.Columns>
+        </DataGrid>
+      </TabItem>
+      <TabItem Header="Невостребованная">
+        <DataGrid ItemsSource="{Binding UnusedClothing}" AutoGenerateColumns="False" GridLinesVisibility="All" IsReadOnly="True">
+          <DataGrid.Columns>
+            <DataGridTextColumn Header="Вид спецодежды" Binding="{Binding ClothingType}" Width="*"/>
+            <DataGridTextColumn Header="Срок носки" Binding="{Binding WearPeriod}" Width="*"/>
+            <DataGridTextColumn Header="Стоимость" Binding="{Binding UnitCost}" Width="*"/>
+          </DataGrid.Columns>
+        </DataGrid>
+      </TabItem>
+      <TabItem Header="Стоимость по цехам">
+        <DataGrid ItemsSource="{Binding WorkshopCost}" AutoGenerateColumns="False" GridLinesVisibility="All" IsReadOnly="True">
+          <DataGrid.Columns>
+            <DataGridTextColumn Header="Цех" Binding="{Binding WorkshopName}" Width="*"/>
+            <DataGridTextColumn Header="Стоимость" Binding="{Binding TotalCost, StringFormat=F2}" Width="*"/>
+          </DataGrid.Columns>
+        </DataGrid>
+      </TabItem>
+    </TabControl>
+  </Grid>
+</UserControl>
